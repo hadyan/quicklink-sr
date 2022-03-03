@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Prefetch experiments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" media="screen" href="main.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
+  <!--<script type="speculationrules">
+  {
+    "prerender": [
+      {"source": "list", "urls": ["foo.html"]}
+    ]
+  }
+  </script>-->
+</head>
+
+<body>
+  <a href="3.html">Link 3</a>
+  <a href="1.html">Link 1</a>
+  
+  <div id='onlythiselement'>
+    <a href="2.html">Link 2</a>
+  </div>
+  
+  
+  
+  
+  <section id="stuff">
+    <a href="main.css">CSS</a>
+  </section>
+  <a href="4.html" style="position:absolute;margin-top:900px;">Link 4</a>
+  <script src="../dist/quicklink.umd.js"></script>
+  <script>
+    
+    //test case 1 - normal prefetch, no prerender
+    //quicklink.listen();
+    /*
+    quicklink.listen(
+      {
+       //el: document.getElementById('onlythiselement'),
+       //origins: ['hadyan2.site','hadyan.site'],
+       ignores: [uri => uri.includes('1.html')],
+       //prerenderAndPrefetch: true
+       prerender: true
+      }
+    );
+    */
+    
+    //test case 2 - only prerender (1st valid link), no prefetch 
+    //quicklink.listen({prerender: true});
+    
+    
+    //test case 3 - using both prefetch and prerendering at the same time, on purpose
+    //quicklink.listen({prerenderAndPrefetch: true});
+      
+    //test case 4a - define a string of page to prerender - prefetch is not touched
+    quicklink.prerender('./2.html')
+    .then(function(res) {
+        console.log(res);
+    })
+    
+    //test case 4b - define an arrayy of string of page to prerender - prefetch is not touched
+    //note: For the OT, only the first entry will be prerendered
+    //quicklink.prerender(['./4.html','./3.html']);
+    
+    //quicklink.prefetch(["1.html",'2.html']);
+    //quicklink.prerender('https://hadyan2.site/kerja/ql1/quicklink/test/4.html');
+    
+    //var mytestarr = ['//hadyan.site/kerja/ql1/quicklink/test/4.html','https://hadyan.site/kerja/ql1/quicklink/test/1.html','./3.html'];
+    //quicklink.prerender(mytestarr);
+    
+    //quicklink.prerender('3.html');
+    
+    /*
+    var test1 = new URLPattern('https://hadyan.site/any*');
+    var test2 = new URLPattern('/kerja23/*','https://hadyan.site');
+    var test3 = './1.html';
+    var test4 = '//hadyan.site/kerja/ql1/quicklink/test/3.html';
+    var testarr = [test1,test2,test3,test4];
+    
+    var evalstr = "https://hadyan.site/kerja/ql1/quicklink/test/1.html";
+    
+    var prerenderOpt = cleanupPrerenderOpt(testarr);
+    
+    var whatever = prerenderOpt.some(opt => {
+        return opt.test(evalstr);
+      }  
+    );
+    */
+    //still have problem -> test 3 pattern with ./htmlfile.html
+    //and test 4 patter with // do not test true with URLPattern.. investigate further!!!
+    
+    //console.log(whatever);
+    
+    //quicklink.listen({prerender: testarr});
+    
+    //console.log(cleanupPrerenderOpt(testarr))
+    //console.log(test1 === true)
+    //console.log(test1.protocol);
+    //console.log(window.location);
+    
+    //console.log(testarr.filter(isSameOrigin));
+    //console.log(test1.test('https://hadyan.site/'));
+
+    
+        // quicklink({ priority: 'high' });
+    //quicklink.prefetch(["1.html"]);
+
+  </script>
+  <script type="module">
+    // import quicklink from "../dist/quicklink.mjs";
+    // quicklink.listen();
+    // let elem = document.getElementById('stuff');
+    // quicklink.listen({
+    //     el: elem
+    // });
+  </script>
+</body>
+
+</html>
