@@ -14,7 +14,7 @@ Quicklink attempts to make navigations to subsequent pages load faster. It:
 * **Detects links within the viewport** (using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API))
 * **Waits until the browser is idle** (using [requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback))
 * **Checks if the user isn't on a slow connection** (using `navigator.connection.effectiveType`) or has data-saver enabled (using `navigator.connection.saveData`)
-* **Prefetches** (using [`<link rel=prefetch>`](https://www.w3.org/TR/resource-hints/#prefetch) or XHR) or **prerenders** (using Speculative Rules API)  URLs to the links. Provides some control over the request priority (can switch to `fetch()` if supported).
+* **Prefetches** (using [`<link rel=prefetch>`](https://www.w3.org/TR/resource-hints/#prefetch) or XHR) or **prerenders** (using [Speculative Rules API](https://github.com/WICG/nav-speculation/blob/main/triggers.md))  URLs to the links. Provides some control over the request priority (can switch to `fetch()` if supported).
 
 ## Why
 
@@ -114,7 +114,7 @@ A "reset" function is returned, which will empty the active `IntersectionObserve
 Type: `Boolean`<br>
 Default: `false`
 
-Whether or not to switch from the default prefetching mode to the prerendering mode for the links inside the viewport.
+Whether to switch from the default prefetching mode to the prerendering mode for the links inside the viewport.
 
 > **Note:** The prerendering mode (when this option is set to true) will fallback to the prefetching mode if the browser does not support prerender.
 
@@ -412,7 +412,7 @@ Certain features have layered support:
 
 * The [Network Information API](https://wicg.github.io/netinfo/), which is used to check if the user has a slow effective connection type (via `navigator.connection.effectiveType`) is only available in [Chrome 61+ and Opera 57+](https://caniuse.com/#feat=netinfo)
 * If opting for `{priority: true}` and the [Fetch API](https://fetch.spec.whatwg.org/) isn't available, XHR will be used instead.
-* Prerendering using Speculative Rules API can be experimented on Chrome >= 94 on any platform by enabling the experimental flag chrome://flags/#enable-prerender2 for local development. Live testing is available for Chrome for Android version 94 through 100 by signing up for the [origin trial](https://developer.chrome.com/origintrials/#/view_trial/1325184190353768449) and adding the [origin trial meta tag](https://github.com/WICG/nav-speculation/blob/main/same-origin-chrome-origin-trial.md#origin-trial-registration).
+* Prerendering using Speculative Rules API can be experimented on Chrome >= 94 on any platform by enabling the experimental flag `chrome://flags/#enable-prerender2` for local development. Live testing is available for Chrome for Android 94 through to 100 by signing up for the [origin trial](https://developer.chrome.com/origintrials/#/view_trial/1325184190353768449) and adding the [origin trial meta tag](https://github.com/WICG/nav-speculation/blob/main/same-origin-chrome-origin-trial.md#origin-trial-registration).
 
 ## Using the prefetcher directly
 
