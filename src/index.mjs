@@ -53,7 +53,7 @@ function checkConnection (conn){
     if (conn.saveData) {
       return Promise.reject(new Error('Save-Data is enabled'));
     }
-    if (/3g/.test(conn.effectiveType)) {
+    if (/2g/.test(conn.effectiveType)) {
       return Promise.reject(new Error('network conditions are poor'));
     }
   }
